@@ -1,16 +1,4 @@
-"""
-parser.py
----------
-Regex-based extraction of structured fields from raw OCR text.
-
-Fields extracted:
-  Name, Email, Phone, Role, Experience (Years), Skills
-"""
-
 import re
-
-
-# ── Keyword lists ──────────────────────────────────────────────────────────────
 
 ROLE_KEYWORDS = [
     "engineer", "developer", "analyst", "manager", "designer",
@@ -37,18 +25,12 @@ SKILL_KEYWORDS = [
 ]
 
 
-# ── Extractors ─────────────────────────────────────────────────────────────────
-
 def extract_email(text: str) -> str:
     match = re.search(r"[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}", text)
     return match.group(0) if match else ""
 
 
 def extract_phone(text: str) -> str:
-    """
-    Captures a wide variety of phone formats:
-      +1 (123) 456-7890  /  123-456-7890  /  1234567890  / (123) 456-7890
-    """
     match = re.search(
         r"(\+?\d{1,3}[\s\-.]?)?(\(?\d{3}\)?[\s\-.]?)(\d{3}[\s\-.]?\d{4})",
         text
@@ -57,10 +39,6 @@ def extract_phone(text: str) -> str:
 
 
 def extract_name(text: str) -> str:
-    """
-    Heuristic: the name is usually the first non-empty ALL-CAPS or Title-Case
-    line that contains only letters and spaces (2–5 words).
-    """
     for line in text.splitlines():
         line = line.strip()
         if not line:
@@ -94,9 +72,6 @@ def extract_role(text: str) -> str:
 
 
 def extract_experience(text: str) -> str:
-    """
-    Look for patterns like: '5 years', '3+ years of experience', '2 yrs'
-    """
     match = re.search(
         r"(\d+)\s*\+?\s*(?:years?|yrs?)(?:\s+of\s+experience)?",
         text, re.IGNORECASE
@@ -105,10 +80,6 @@ def extract_experience(text: str) -> str:
 
 
 def extract_skills(text: str) -> str:
-    """
-    Scan the entire text for known skill keywords (case-insensitive).
-    Returns a comma-separated, deduplicated, title-cased list.
-    """
     lower_text = text.lower()
     found = []
     for skill in SKILL_KEYWORDS:
@@ -117,12 +88,7 @@ def extract_skills(text: str) -> str:
     return ", ".join(found)
 
 
-# ── Public API ─────────────────────────────────────────────────────────────────
-
 def parse_resume(text: str) -> dict:
-    """
-    Run all extractors and return a structured dict ready for Google Sheets.
-    """
     return {
         "Name":               extract_name(text),
         "Email":              extract_email(text),
