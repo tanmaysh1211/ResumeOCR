@@ -98,9 +98,3 @@ Open your browser at `http://localhost:8501`
 - NLP-based role classification and skill matching
 - CSV export for filtered candidates
 - Admin dashboard for screening and review
-
----
-
-## 📎 GitHub
-
-https://github.com/HEX-CLOUD/Recruit_tool
