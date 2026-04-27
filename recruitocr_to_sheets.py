@@ -6,11 +6,9 @@ from utils.ocr_utils import preprocess_image, run_ocr
 from utils.parser import parse_resume
 from utils.sheets_utils import upload_to_sheet
 
-# ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(page_title="RecruitOCR", page_icon="📄")
 st.title("📄 RecruitOCR: Resume Info Extractor")
 
-# ── File uploader ──────────────────────────────────────────────────────────────
 uploaded_file = st.file_uploader(
     "Upload Resume Image (JPG, PNG, JPEG)",
     type=["jpg", "png", "jpeg"]
@@ -23,7 +21,6 @@ if uploaded_file is not None:
 
     st.image(image, caption="Uploaded Resume Image", use_column_width=True)
 
-    # ── OCR ────────────────────────────────────────────────────────────────────
     with st.spinner("Running OCR..."):
         processed = preprocess_image(img_array)
         raw_text  = run_ocr(processed)
@@ -31,13 +28,11 @@ if uploaded_file is not None:
     st.subheader("Extracted Text")
     st.text_area("", value=raw_text, height=180)
 
-    # ── Parsing ────────────────────────────────────────────────────────────────
     parsed = parse_resume(raw_text)
 
     st.subheader("Parsed Resume Information")
     st.json(parsed)
 
-    # ── Upload ─────────────────────────────────────────────────────────────────
     if st.button("Upload to Google Sheet"):
         with st.spinner("Uploading..."):
             success = upload_to_sheet(parsed)
