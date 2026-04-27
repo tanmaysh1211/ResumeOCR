@@ -26,11 +26,11 @@ RecruitOCR/
 ├── .gitignore
 ├── README.md
 ├── utils/
-│   ├── __init__.py
-│   ├── ocr_utils.py          ← OpenCV pre-processing + Tesseract OCR
-│   ├── parser.py             ← Regex field extraction
-│   └── sheets_utils.py       ← Google Sheets auth + append
-└── sample_resumes/           ← Test images (optional)
+    ├── __init__.py
+    ├── ocr_utils.py          ← OpenCV pre-processing + Tesseract OCR
+    ├── parser.py             ← Regex field extraction
+    └── sheets_utils.py       ← Google Sheets auth + append
+
 ```
 
 ---
@@ -48,16 +48,6 @@ pip install -r requirements.txt
 **Windows:**  
 Download and install from https://github.com/UB-Mannheim/tesseract/wiki  
 Default path: `C:\Program Files\Tesseract-OCR\tesseract.exe`
-
-**Mac:**
-```bash
-brew install tesseract
-```
-
-**Linux (Ubuntu/Debian):**
-```bash
-sudo apt install tesseract-ocr
-```
 
 ### 3. Set up Google Sheets API
 
