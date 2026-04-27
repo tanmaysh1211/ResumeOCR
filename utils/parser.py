@@ -55,10 +55,6 @@ def extract_name(text: str) -> str:
 
 
 def extract_role(text: str) -> str:
-    """
-    Return the first line that contains a recognised role keyword.
-    Falls back to the keyword itself if no clean line is found.
-    """
     lines = text.splitlines()
     for line in lines:
         lower = line.lower()
